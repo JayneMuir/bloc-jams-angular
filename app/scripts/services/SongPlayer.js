@@ -1,7 +1,11 @@
 (function() {
      function SongPlayer() {
         var SongPlayer = {};
-         
+        
+        /*
+        *@desc newly chosen song object
+        * @type {Object}
+        */
         var currentSong = null;
          
          /*      
@@ -24,25 +28,34 @@
 
             currentSong = song;
         }; 
+  
+                 /*
+         * @function playSong
+         * @desc Plays currently playing song and sets song playing attribute to true
+         * @param {Object} song
+         */
+         var playSong = function(song) {
+                currentBuzzObject.play();
+                song.playing = true;
+            };
          
         SongPlayer.play = function(song) {
-            if (currentSong !== song) {
-                setSong(song);
-                currentBuzzObject.play(); 
-                song.playing = true;
-            } else if (currentSong === song) {
-                if (currentBuzzObject.isPaused()) {
-                    currentBuzzObject.play();
-                }
-            }              
-     };
+                if (currentSong !== song) {
+                    setSong(song);
+                    playSong(song);
+                } else if (currentSong === song) {
+                    if (currentBuzzObject.isPaused()) {
+                        playSong(song);
+                    }
+                }              
+            };
          
-    SongPlayer.pause = function(song) {
-        currentBuzzObject.pause();
-        song.playing = false;
-    };
+        SongPlayer.pause = function(song) {
+            currentBuzzObject.pause();
+            song.playing = false;
+        };
 
-          return SongPlayer;
+         return SongPlayer;
      }
  
      angular
