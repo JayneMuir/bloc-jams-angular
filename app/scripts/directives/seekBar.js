@@ -70,6 +70,13 @@
                     var percent = calculatePercent(seekBar, event);
                     scope.value = percent * scope.max;
                 };
+                /* @function thumbStyle
+                 * @desc     updates the position of the seek bar thumb
+                 * @returns {String}
+                 */
+                scope.thumbStyle = function() {
+                    return {left: percentString()};
+                }; 
                 
                 scope.trackThumb = function() {
                     $document.bind('mousemove.thumb', function(event) {
