@@ -20,7 +20,9 @@
             templateUrl: '/templates/directives/seek_bar.html',
             replace: true,
             restrict: 'E',
-            scope: { },
+            scope: {
+                onChange: '&'
+            },
             link: function (scope, element, attributes) {
                 /*@desc Holds the value of the seek bar,
                 *       such as the currently playing song
@@ -37,6 +39,14 @@
                 scope.max = 100;
                 
                 var seekBar = $(element);  
+                
+                attributes.$observe('value', function(newValue) {
+                    scope.value = newValue;
+                });
+ 
+                attributes.$observe('max', function(newValue) {
+                    scope.max = newValue;
+                });
                 
                 /* @function percentString
                  * @desc     A function that calculates a
@@ -69,6 +79,7 @@
                 scope.onClickSeekBar = function(event) {
                     var percent = calculatePercent(seekBar, event);
                     scope.value = percent * scope.max;
+                    notifyOnChange(scope.value);
                 };
                 /* @function thumbStyle
                  * @desc     updates the position of the seek bar thumb
@@ -83,6 +94,7 @@
                         var percent = calculatePercent(seekBar, event);
                         scope.$apply(function() {
                             scope.value = percent * scope.max;
+                            notifyOnChange(scope.value);
                         });
                     });
  
@@ -90,6 +102,12 @@
                         $document.unbind('mousemove.thumb');
                         $document.unbind('mouseup.thumb');
                     });
+                };
+                
+                var notifyOnChange = function(newValue) {
+                    if (typeof scope.onChange === 'function') {
+                        scope.onChange({value: newValue});
+                    }
                 };
              }
         };
