@@ -153,6 +153,24 @@
                 currentBuzzObject.setTime(time);
             }
         };
+         
+        /**
+        * @desc Current volume of currently playing song
+        * @type {Number}
+        */
+        SongPlayer.volume = null;
+
+        /**
+        * @function setVolume
+        * @desc Update the volume on change
+        * @param {Number} volume
+        */
+        SongPlayer.setVolume = function(volume) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setVolume(volume);
+            }
+        };
+
 
          return SongPlayer;
      }
