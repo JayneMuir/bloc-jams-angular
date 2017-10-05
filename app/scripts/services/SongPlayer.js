@@ -6,13 +6,13 @@
         * @type {Object}
         */
         var currentAlbum = Fixtures.getAlbum(); 
-
+         
         /*      
         * @desc Buzz object audio file
         * @type {Object}
         */
-        var currentBuzzObject = null;
-         
+        currentBuzzObject = null;
+
         /*
          * @function setSong
          * @desc Stops currently playing song and loads new audio file as currentBuzzObject
@@ -78,6 +78,7 @@
         * @type {Number}
         */
         SongPlayer.currentTime = null;
+         
 
         /*
         * @function SongPlayer.play
